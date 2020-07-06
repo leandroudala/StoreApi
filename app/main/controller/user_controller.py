@@ -18,7 +18,7 @@ class UserList(Resource):
 
     @api.response(201,'User successfully created.')
     @api.response(409,'Username already exists.')
-    @api.expect(_user, validate=True)
+    @api.expect(_new_user, validate=True)
     def post(self):
         return save_new_user(request.json)
 

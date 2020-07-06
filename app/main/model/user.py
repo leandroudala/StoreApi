@@ -33,7 +33,7 @@ class User(db.Model):
         return f'<User "{self.username}">'
 
     @staticmethod
-    def encode_auth_token(self, user_id):
+    def encode_auth_token(user_id):
         try:
             payload = {
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=29),
@@ -56,7 +56,7 @@ class User(db.Model):
             if is_blacklisted_token:
                 return 'Token blacklisted. Please log in again.'
             return payload['sub']
-        except jwt.ExpireSignatureError:
+        except jwt.ExpiredSignatureError:
             return 'Signature expired. Please log in again.'
         except jwt.InvalidTokenError:
             return 'Invalid token. Please log in again.'

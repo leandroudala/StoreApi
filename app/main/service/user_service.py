@@ -8,12 +8,19 @@ def save_changes(data):
 
 def generate_token(user):
     try:
+        print(user)
         auth_token = User.encode_auth_token(user.id)
         return {
             'status': 'success',
             'msg': 'Successfully registered',
             'Authorization': auth_token.decode()
         }, 201
+    except Exception as e:
+        print(e)
+        return {
+            'status': 'fail',
+            'msg': 'Some error occurred. Please try again'
+        }, 401
 
 def save_new_user(data):
     user = User.query.filter_by(username=data['username']).first()
