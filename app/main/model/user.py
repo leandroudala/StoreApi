@@ -16,6 +16,7 @@ class User(db.Model):
     name = db.Column(db.String(75), nullable=False)
     username = db.Column(db.String(15), nullable=False, unique=True)
     password_hash = db.Column(CHAR(60), nullable=False)
+    active = db.Column(db.Boolean(), nullable=False, default=True)
 
     @property
     def password(self):
@@ -31,6 +32,7 @@ class User(db.Model):
     def __repr__(self):
         return f'<User "{self.username}">'
 
+    @staticmethod
     def encode_auth_token(self, user_id):
         try:
             payload = {
